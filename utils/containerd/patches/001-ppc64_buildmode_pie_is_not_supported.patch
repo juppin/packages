@@ -1,0 +1,26 @@
+From d12b53a072dd67aad37046bb4437043fe02d0419 Mon Sep 17 00:00:00 2001
+From: Tibor Vass <tibor@docker.com>
+Date: Mon, 28 Oct 2019 22:47:42 +0000
+Subject: [PATCH] ppc64: -buildmode=pie is not supported
+
+I needed this patch to compile containerd for ppc64.
+
+Signed-off-by: Tibor Vass <tibor@docker.com>
+---
+ Makefile.linux | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile.linux b/Makefile.linux
+index 7b2700897b..a9f91bbcf6 100644
+--- a/Makefile.linux
++++ b/Makefile.linux
+@@ -20,7 +20,9 @@ COMMANDS += containerd-shim containerd-shim-runc-v1 containerd-shim-runc-v2
+ 
+ # check GOOS for cross compile builds
+ ifeq ($(GOOS),linux)
++  ifneq ($(GOARCH),ppc64)
+ 	GO_GCFLAGS += -buildmode=pie
++  endif
+ endif
+ 
+ # amd64 supports go test -race
