@@ -39,7 +39,7 @@ define Package/containerd
   CATEGORY:=Utilities
   TITLE:=containerd container runtime
   URL:=https://containerd.io/
-  DEPENDS:=$(GO_ARCH_DEPENDS) @(aarch64||arm||x86_64) +btrfs-progs +runc +CONTAINERD_SECCOMP:libseccomp
+  DEPENDS:=$(GO_ARCH_DEPENDS) +btrfs-progs +runc +CONTAINERD_SECCOMP:libseccomp
   MENU:=1
 endef
 
