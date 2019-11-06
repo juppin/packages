@@ -62,7 +62,7 @@ MAKE_VARS += \
 MAKE_FLAGS += \
 	COMMIT=$(PKG_SOURCE_VERSION)
 
-ifeq ($(ARCH),mips)
+ifeq ($(ARCH),$(filter $(ARCH),mips mipsel mips64 mips64le))
 MAKE_FLAGS += EXTRA_FLAGS='-buildmode=default'
 endif
 
