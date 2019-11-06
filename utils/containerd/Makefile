@@ -15,6 +15,7 @@ PKG_MAINTAINER:=Gerard Ryan <G.M0N3Y.2503@gmail.com>
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
 PKG_INSTALL:=1
 
 GO_PKG:=github.com/containerd/containerd
@@ -61,6 +62,10 @@ MAKE_FLAGS += \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
 	VERSION=$(PKG_VERSION) \
 	REVISION=$(PKG_SOURCE_VERSION)
+
+ifeq ($(ARCH),$(filter $(ARCH),mips mipsel mips64 mips64le))
+MAKE_FLAGS += EXTRA_FLAGS='-buildmode=default'
+endif
 
 ifeq ($(CONFIG_CONTAINERD_SECCOMP),y)
 MAKE_FLAGS += BUILDTAGS='seccomp'
